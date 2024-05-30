@@ -11,7 +11,7 @@ section .bss
 
 section .text
 
-limpieza:
+limpiar_registros:
     ; limpia los registros para ser utilizados
     xor eax, eax
     xor ebx, ebx
@@ -49,7 +49,7 @@ global CMAIN
 CMAIN:
     mov ebp, esp
     
-    call limpieza
+    call limpiar_registros
     
     ; operacion
     mov al, [N1]    ; parte baja de EAX
