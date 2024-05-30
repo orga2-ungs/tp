@@ -26,6 +26,15 @@ suma:
     add eax, ebx
     mov [res_sum], eax
     ret
+    
+resta:
+    ; resta los dos operandos
+    ; parametros: 
+    ;   1. EAX - primer operando
+    ;   2. EBX - segundo operando
+    sub eax, ebx
+    mov [res_sum], eax
+    ret
 
 multip:
     ; multiplica los dos operandos
@@ -42,9 +51,9 @@ CMAIN:
     
     call limpieza
     
-    ; multiplicacion
+    ; operacion
     mov al, [N1]    ; parte baja de EAX
     mov bl, [N2]    ; parte baja de EBX
-    call suma
+    call resta
     
     ret
