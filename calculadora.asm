@@ -7,6 +7,7 @@ section .data
 section .bss
     op resb 1
     res_sum resb 1
+    res_rest resb 1
     res_mul resb 1
     res_div resb 1
 
@@ -34,7 +35,7 @@ resta:
     ;   1. EAX - primer operando
     ;   2. EBX - segundo operando
     sub eax, ebx
-    mov [res_sum], eax
+    mov [res_rest], eax
     ret
 
 multip:
