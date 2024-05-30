@@ -5,8 +5,8 @@ section .data
     N2 db 3
 
 section .bss
-
     op resb 1
+    res_sum resb 1
     res_mul resb 1
 
 section .text
@@ -17,17 +17,24 @@ limpieza:
     xor ebx, ebx
     xor ecx, ecx
     xor edx, edx
+    
+suma:
+    ; suma los dos operandos
+    ; parametros: 
+    ;   1. EAX - primer operando
+    ;   2. EBX - segundo operando
+    add eax, ebx
+    mov [res_sum], eax
+    ret
 
 multip:
-    ; multiplica dos numeros
+    ; multiplica los dos operandos
     ; parametros: 
-    ;   1. EAX - primer numero
-    ;   2. EBX - segundo numero
+    ;   1. EAX - primer operando
+    ;   2. EBX - segundo operando
     mul ebx
     mov [res_mul], ebx
-    
-    ret
-    
+    ret 
 
 global CMAIN
 CMAIN:
@@ -38,6 +45,6 @@ CMAIN:
     ; multiplicacion
     mov al, [N1]    ; parte baja de EAX
     mov bl, [N2]    ; parte baja de EBX
-    call multip
+    call suma
     
     ret
