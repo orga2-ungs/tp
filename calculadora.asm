@@ -1,3 +1,4 @@
+;uncomment for correct debugging
 ;%include "io.inc"
 
 section .data
@@ -65,19 +66,16 @@ recibir_operacion:
     ;   1. EAX - primer operando
     ;   2. EDX - operacion
     ;   3. EBX - segundo operando
+    call limpiar_registros
+    mov eax, [esp+4]
+    mov ebx, [esp+8]
     call suma
     ret
     
 
 global CMAIN
 CMAIN:
-    mov ebp, esp
-    
-    call limpiar_registros
-    
+    mov ebp, esp    
     ; operacion
-    mov al, [N1]    ; parte baja de EAX
-    mov bl, [N2]    ; parte baja de EBX
-    call recibir_operacion
-    
+    call recibir_operacion   
     ret
