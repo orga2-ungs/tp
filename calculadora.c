@@ -33,7 +33,7 @@ void MostrarResultado(int resultado) {
   printf("El resultado de la operación es: %d\n", resultado);
 }
 
-int realizarOtraOperacion() {
+int seguirOperando() {
   char input[10];
   printf("Ingrese 1 para continuar y 0 para salir\n");
   fgets(input, sizeof(input), stdin);
@@ -52,7 +52,7 @@ int main() {
     LeerPregunta();
     int resultado = CalcularOperacion(num1, operando, num2);
     MostrarResultado(resultado);
-    continuar = realizarOtraOperacion();
+    continuar = seguirOperando();
   }
   return 0;
 }
