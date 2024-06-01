@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 // llamar funcion asm usando extern int suma(int a, int b);
 
@@ -12,29 +14,28 @@ int num2;
 void LeerPregunta(){
     char input[100];
     printf("Ingrese la operacion a calcular (e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10')");
-    fgets(input, sizeof(input), stdin);
-    char *token = strtok(input, " ");
-    int num1 = atoi(token);
+    //fgets(input, sizeof(input), stdin);
+    char str[] = "10 + 10";
+    char *token = strtok(str, " ");
+    num1 = atoi(token);
     token = strtok(NULL, " ");
-    char operando = token[0];
+    operando = token[0];
     token = strtok(NULL, " ");
-    int num2 = atoi(token);
+    num2 = atoi(token);
 }
 
 // Devuelve resultado de la operacion
-int CalcularOperacion(int Operando1, char Operador, int Operando2){
-  //test
-  int resultado;
-  resultado = recibir_operacion(Operando1, Operador, Operando2);
+int CalcularOperacion(int Operando1, char Operador, int Operando2) {
+  int resultado = recibir_operacion(Operando1, Operador, Operando2);
   return resultado;
 }
 
 void MostrarResultado(int resultado){
-  printf(resultado);
+  printf("EL resultado de la operación es: %d\n", resultado);
 }
 
 int main(){
-  while(true){
+  while(1){
     LeerPregunta();
     int resultado = CalcularOperacion(num1, operando, num2);
     MostrarResultado(resultado);

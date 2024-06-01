@@ -1,4 +1,4 @@
-;%include "io.inc"
+%include "io.inc"
 
 section .data
     N1 db 5
