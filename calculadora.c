@@ -30,12 +30,29 @@ int CalcularOperacion(int Operando1, char Operador, int Operando2) {
 }
 
 void MostrarResultado(int resultado) {
-  printf("EL resultado de la operación es: %d\n", resultado);
+  printf("El resultado de la operación es: %d\n", resultado);
+}
+
+int realizarOtraOperacion() {
+  char input[10];
+  printf("Ingrese 1 para continuar y 0 para salir\n");
+  fgets(input, sizeof(input), stdin);
+  char *token = strtok(input, " ");
+  //por algun motivo esto genera segmentation fault
+  //int respuesta;
+  //scanf("%d", &respuesta);
+  int respuesta = atoi(token);
+  return respuesta;
 }
 
 int main() {
-  LeerPregunta();
-  int resultado = CalcularOperacion(num1, operando, num2);
-  MostrarResultado(resultado);
+  int continuar = 1;
+  
+  while(continuar) {
+    LeerPregunta();
+    int resultado = CalcularOperacion(num1, operando, num2);
+    MostrarResultado(resultado);
+    continuar = realizarOtraOperacion();
+  }
   return 0;
 }
