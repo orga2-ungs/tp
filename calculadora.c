@@ -11,12 +11,11 @@ char operando;
 int num2;
 
 // Muestra un mensaje solicitando ingreso y se ingresa la pregunta
-void LeerPregunta(){
+void LeerPregunta() {
     char input[100];
-    printf("Ingrese la operacion a calcular (e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10')");
-    //fgets(input, sizeof(input), stdin);
-    char str[] = "10 + 10";
-    char *token = strtok(str, " ");
+    printf("Ingrese la operacion a calcular (e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10')\n");
+    fgets(input, sizeof(input), stdin);
+    char *token = strtok(input, " ");
     num1 = atoi(token);
     token = strtok(NULL, " ");
     operando = token[0];
@@ -30,15 +29,13 @@ int CalcularOperacion(int Operando1, char Operador, int Operando2) {
   return resultado;
 }
 
-void MostrarResultado(int resultado){
+void MostrarResultado(int resultado) {
   printf("EL resultado de la operación es: %d\n", resultado);
 }
 
-int main(){
-  while(1){
-    LeerPregunta();
-    int resultado = CalcularOperacion(num1, operando, num2);
-    MostrarResultado(resultado);
-  }
+int main() {
+  LeerPregunta();
+  int resultado = CalcularOperacion(num1, operando, num2);
+  MostrarResultado(resultado);
   return 0;
 }
