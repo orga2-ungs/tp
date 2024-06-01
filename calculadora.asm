@@ -56,6 +56,17 @@ division:
     mov [res_div], ebx
     ret
     
+recibir_operacion:
+    ; realiza una operacion
+    ; puede ser suma, resta
+    ; multiplicación o división
+    ; parametros:
+    ;   1. EAX - primer operando
+    ;   2. EDX - operacion
+    ;   3. EBX - segundo operando
+    call suma
+    ret
+    
 
 global CMAIN
 CMAIN:
@@ -66,6 +77,6 @@ CMAIN:
     ; operacion
     mov al, [N1]    ; parte baja de EAX
     mov bl, [N2]    ; parte baja de EBX
-    call division
+    call recibir_operacion
     
     ret
