@@ -68,13 +68,15 @@ recibir_operacion:
     ;   3. EBX - segundo operando
     call limpiar_registros
     mov eax, [esp+4]
-    mov ebx, [esp+8]
+    mov edx, [esp+8]
+    mov ebx, [esp+12]
     call suma
     ret
     
 
 global CMAIN
 CMAIN:
+    ;mov rbp, rsp; for correct debugging
     mov ebp, esp    
     ; operacion
     call recibir_operacion   
