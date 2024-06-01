@@ -66,9 +66,22 @@ recibir_operacion:
     ;   1. EAX - primer operando
     ;   2. EDX - operacion
     ;   3. EBX - segundo operando
+    
     call limpiar_registros
     mov eax, [esp+4]
     mov edx, [esp+8]
     mov ebx, [esp+12]
-    call suma
+    
+    cmp edx, '+'
+    je suma
+    
+    cmp edx, '-'
+    je resta
+    
+    cmp edx, '*'
+    je multip
+    
+    cmp edx, '/'
+    je division ; excepcion de coma flotante
+
     ret
