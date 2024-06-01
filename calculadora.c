@@ -2,6 +2,8 @@
 
 // llamar funcion asm usando extern int suma(int a, int b);
 
+extern int recibir_operacion(int operando1, char operador, int operando2);
+
 int num1;
 char operando;
 int num2;
@@ -22,7 +24,9 @@ void LeerPregunta(){
 // Devuelve resultado de la operacion
 int CalcularOperacion(int Operando1, char Operador, int Operando2){
   //test
-  return 1;
+  int resultado;
+  resultado = recibir_operacion(Operando1, Operador, Operando2);
+  return resultado;
 }
 
 void MostrarResultado(int resultado){
