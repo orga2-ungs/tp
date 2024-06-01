@@ -7,7 +7,7 @@ section .data
 
 section .bss
     op resb 1
-    res_sum resb 1
+    res_sum resb 1  ;esto se puede reducir a un registro para todo
     res_rest resb 1
     res_mul resb 1
     res_div resb 1
@@ -57,6 +57,13 @@ division:
     mov [res_div], ebx
     ret
 
+error_div_cero:
+    ; error generado por intento
+    ; de dividir por cero
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80
+
 global recibir_operacion  
 recibir_operacion:
     ; realiza una operacion
@@ -80,6 +87,9 @@ recibir_operacion:
     
     cmp edx, '*'
     je multip
+    
+    cmp ebx, 0
+    je error_div_cero
     
     cmp edx, '/'
     je division ; excepcion de coma flotante
