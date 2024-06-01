@@ -72,12 +72,3 @@ recibir_operacion:
     mov ebx, [esp+12]
     call suma
     ret
-    
-
-global CMAIN
-CMAIN:
-    ;mov rbp, rsp; for correct debugging
-    mov ebp, esp    
-    ; operacion
-    call recibir_operacion   
-    ret
