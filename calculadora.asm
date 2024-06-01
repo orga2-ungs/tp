@@ -1,4 +1,4 @@
-%include "io.inc"
+;%include "io.inc"
 
 section .data
     N1 db 5
@@ -55,7 +55,8 @@ division:
     div ebx
     mov [res_div], ebx
     ret
-    
+
+global recibir_operacion  
 recibir_operacion:
     ; realiza una operacion
     ; puede ser suma, resta
