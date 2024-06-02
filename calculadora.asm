@@ -53,6 +53,7 @@ division:
     ; parametros: 
     ;   1. EAX - dividendo
     ;   2. EBX - divisor
+    xor edx, edx 
     div ebx
     mov [res_div], ebx
     ret
