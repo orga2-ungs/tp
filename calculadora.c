@@ -46,7 +46,7 @@ void LimpiarInput(const char* input, int* num1, char* operando, int* num2) {
 // Muestra un mensaje solicitando ingreso y se ingresa la pregunta
 void LeerPregunta() {
     char input[100];
-    // printf("Ingrese la operacion a calcular (e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10')\n");
+    printf("Ingrese la operacion a calcular (e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10')\n");
     fgets(input, sizeof(input), stdin);
     // char *token = strtok(input, " ");
     // num1 = atoi(token);
