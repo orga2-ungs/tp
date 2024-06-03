@@ -45,6 +45,7 @@ int GetInput() {
   printf("input> ");
   fgets(input, sizeof(input), stdin);
   if(input[0] == 'q') return 0;
+  if(input[0] == 'h') return 2;
   LimpiarInput(input, &num1, &operando, &num2);
   return 1;
 }
@@ -86,11 +87,19 @@ void MostrarError(int codigo_error){
   }     
 }
 
+void MostrarAyuda() {
+  printf("(e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10')\n");
+}
 
 int main() {
-  printf("Ingrese la operacion a calcular (e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10') o q para salir\n");
-  
-  while(GetInput()) {
+  printf("Ingrese la operacion a calcular, q para salir o h para ayuda\n");
+  int input;
+
+  while(input = GetInput()) {
+    if (input == 2) {
+      MostrarAyuda();
+      continue;
+    }
     int resultado = CalcularOperacion(num1, operando, num2);
     int codigo_error = ObtenerCodigoError();
     if (codigo_error != 0) {
