@@ -36,6 +36,8 @@ resta:
     ; parametros: 
     ;   1. EAX - primer operando
     ;   2. EBX - segundo operando
+    cmp ebx, eax
+    jg error_resta
     sub eax, ebx
     mov [res_rest], eax
     ret
@@ -59,6 +61,11 @@ division:
     test edx, edx
     jnz error_non_int_div
     mov [res_div], ebx
+    ret
+
+error_resta:
+    ; resultado de resta negativo
+    mov dword [error_code], 4
     ret
 
 error_div_cero:
