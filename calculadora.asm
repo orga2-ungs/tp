@@ -56,6 +56,8 @@ division:
     ;   2. EBX - divisor
     xor edx, edx 
     div ebx
+    test edx, edx
+    jnz error_non_int_div
     mov [res_div], ebx
     ret
 
