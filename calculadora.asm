@@ -11,6 +11,7 @@ section .bss
     res_rest resb 1
     res_mul resb 1
     res_div resb 1
+    error_code resd 1
 
 section .text
 
@@ -61,9 +62,16 @@ division:
 error_div_cero:
     ; error generado por intento
     ; de dividir por cero
-    mov eax, 1
-    xor ebx, ebx
-    int 0x80
+    ; mov eax, 1
+    ; xor ebx, ebx
+    ; int 0x80
+    mov dword [error_code], 1
+    ret
+
+error_non_int_div:
+   mov dword [error_code], 3 
+   ret 
+
 
 global recibir_operacion  
 recibir_operacion:
@@ -79,6 +87,7 @@ recibir_operacion:
     mov eax, [esp+4]
     mov edx, [esp+8]
     mov ebx, [esp+12]
+    mov dword [error_code], 0
     
     cmp edx, '+'
     je suma
@@ -95,4 +104,15 @@ recibir_operacion:
     cmp edx, '/'
     je division ; excepcion de coma flotante
 
+    ; operacion no valida
+    mov dword [error_code], 2
     ret
+
+global obtener_codigo_error
+obtener_codigo_error:
+   ; devuelve codigo de error
+   ; 1 - division por cero
+   ; 2 - operacion no valida
+   ; 3 - resultado de division no entero
+   mov eax, [error_code]
+   ret
