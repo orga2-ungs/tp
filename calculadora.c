@@ -40,11 +40,13 @@ void LimpiarInput(const char* input, int* num1, char* operando, int* num2) {
     }
 }
 
-void LeerPregunta() {
-    char input[100];
-    printf("Ingrese la operacion a calcular (e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10')\n");
-    fgets(input, sizeof(input), stdin);
-    LimpiarInput(input, &num1, &operando, &num2);
+int GetInput() {
+  char input[100];
+  printf("input> ");
+  fgets(input, sizeof(input), stdin);
+  if(input[0] == 'q') return 0;
+  LimpiarInput(input, &num1, &operando, &num2);
+  return 1;
 }
 
 int CalcularOperacion(int Operando1, char Operador, int Operando2) {
@@ -56,10 +58,10 @@ int ObtenerCodigoError(){
 }
 
 void MostrarResultado(int resultado) {
-  printf("El resultado de la operación es: %d\n", resultado);
+  printf("output> %d\n", resultado);
 }
 
-int seguirOperando() {
+int SeguirOperando() {
   char input[10];
   printf("Ingrese 1 para continuar y 0 para salir\n");
 
@@ -86,18 +88,16 @@ void MostrarError(int codigo_error){
 
 
 int main() {
-  int continuar = 1;
+  printf("Ingrese la operacion a calcular (e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10') o q para salir\n");
   
-  while(continuar) {
-    LeerPregunta();
+  while(GetInput()) {
     int resultado = CalcularOperacion(num1, operando, num2);
     int codigo_error = ObtenerCodigoError();
-    if (codigo_error != 0){
-     MostrarError(codigo_error);
+    if (codigo_error != 0) {
+      MostrarError(codigo_error);
     } else {
-     MostrarResultado(resultado);
-    } 
-    continuar = seguirOperando();
+      MostrarResultado(resultado);
+    }
   }
   return 0;
 }
