@@ -80,11 +80,11 @@ void MostrarError(int codigo_error){
 }
 
 void MostrarAyuda() {
-  printf("(e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10')\n");
+  printf("USO\nIngresar dos operandos separados por un operador.\nPor e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10'.\nNo se permiten más de dos operandos ni números de punto flotante.\n");
 }
 
 int main() {
-  printf("Ingrese la operacion a calcular, q para salir o h para ayuda\n");
+  printf("Ingrese la operacion a calcular, q para salir o h para ayuda.\n");
   int input;
 
   while(input = GetInput()) {
