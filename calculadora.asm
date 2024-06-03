@@ -69,11 +69,6 @@ error_resta:
     ret
 
 error_div_cero:
-    ; error generado por intento
-    ; de dividir por cero
-    ; mov eax, 1
-    ; xor ebx, ebx
-    ; int 0x80
     mov dword [error_code], 1
     ret
 
