@@ -40,9 +40,9 @@ void LimpiarInput(const char* input, int* num1, char* operando, int* num2) {
     }
 }
 
-int GetInput() {
+int GetInput(int numOperacion) {
   char input[100];
-  printf("input> ");
+  printf("%d:input> ", numOperacion);
   fgets(input, sizeof(input), stdin);
 
   if(input[0] == 'q') return 0;   // salir
@@ -60,8 +60,8 @@ int ObtenerCodigoError(){
   return obtener_codigo_error();
 }
 
-void MostrarResultado(int resultado) {
-  printf("output> %d\n", resultado);
+void MostrarResultado(int numOperacion, int resultado) {
+  printf("%d:output> %d\n", numOperacion, resultado);
 }
 
 void MostrarError(int codigo_error){
@@ -86,8 +86,9 @@ void MostrarAyuda() {
 int main() {
   printf("Ingrese la operacion a calcular, q para salir o h para ayuda.\n");
   int input;
+  int numOperacion = 1;
 
-  while(input = GetInput()) {
+  while(input = GetInput(numOperacion)) {
     if (input == 2) {
       MostrarAyuda();
       continue;
@@ -97,8 +98,9 @@ int main() {
     if (codigo_error != 0) {
       MostrarError(codigo_error);
     } else {
-      MostrarResultado(resultado);
+      MostrarResultado(numOperacion, resultado);
     }
+    numOperacion++;
   }
   return 0;
 }
