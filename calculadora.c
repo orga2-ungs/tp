@@ -44,10 +44,12 @@ int GetInput() {
   char input[100];
   printf("input> ");
   fgets(input, sizeof(input), stdin);
-  if(input[0] == 'q') return 0;
-  if(input[0] == 'h') return 2;
+
+  if(input[0] == 'q') return 0;   // salir
+  if(input[0] == 'h') return 2;   // ayuda
+
   LimpiarInput(input, &num1, &operando, &num2);
-  return 1;
+  return 1;   // continuar con operacion
 }
 
 int CalcularOperacion(int Operando1, char Operador, int Operando2) {
@@ -60,16 +62,6 @@ int ObtenerCodigoError(){
 
 void MostrarResultado(int resultado) {
   printf("output> %d\n", resultado);
-}
-
-int SeguirOperando() {
-  char input[10];
-  printf("Ingrese 1 para continuar y 0 para salir\n");
-
-  fgets(input, sizeof(input), stdin);
-  char *token = strtok(input, " ");
-  int respuesta = atoi(token);
-  return respuesta;
 }
 
 void MostrarError(int codigo_error){
