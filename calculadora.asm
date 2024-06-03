@@ -3,7 +3,6 @@
 
 section .bss
     op resb 1
-    resultado resb 1
     error_code resd 1
 
 section .text
@@ -21,7 +20,6 @@ suma:
     ;   1. EAX - primer operando
     ;   2. EBX - segundo operando
     add eax, ebx
-    mov [resultado], eax
     ret
     
 resta:
@@ -32,7 +30,6 @@ resta:
     cmp ebx, eax
     jg error_resta
     sub eax, ebx
-    mov [resultado], eax
     ret
 
 multip:
@@ -41,7 +38,6 @@ multip:
     ;   1. EAX - primer operando
     ;   2. EBX - segundo operando
     mul ebx
-    mov [resultado], ebx
     ret
 
 division:
@@ -53,7 +49,6 @@ division:
     div ebx
     test edx, edx
     jnz error_non_int_div
-    mov [resultado], ebx
     ret
 
 error_resta:
@@ -66,8 +61,8 @@ error_div_cero:
     ret
 
 error_non_int_div:
-   mov dword [error_code], 3 
-   ret 
+    mov dword [error_code], 3 
+    ret 
 
 
 global recibir_operacion  
