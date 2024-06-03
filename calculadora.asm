@@ -2,7 +2,6 @@
 ;%include "io.inc"
 
 section .bss
-    op resb 1
     error_code resd 1
 
 section .text
@@ -63,7 +62,6 @@ error_div_cero:
 error_non_int_div:
     mov dword [error_code], 3 
     ret 
-
 
 global recibir_operacion  
 recibir_operacion:
