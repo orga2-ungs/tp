@@ -69,9 +69,10 @@ recibir_operacion:
     ; puede ser suma, resta
     ; multiplicación o división
     ; parametros:
-    ;   1. EAX - primer operando
-    ;   2. EDX - operacion
-    ;   3. EBX - segundo operando
+    ;   1. ESP - array de parametros,
+    ;    en el que esta el primer
+    ;    operando, el operador y el
+    ;    segundo operando
     
     call limpiar_registros
     mov eax, [esp+4]
