@@ -1,16 +1,9 @@
 ;uncomment for correct debugging
 ;%include "io.inc"
 
-section .data
-    N1 db 5
-    N2 db 3
-
 section .bss
     op resb 1
-    res_sum resb 1  ;esto se puede reducir a un registro para todo
-    res_rest resb 1
-    res_mul resb 1
-    res_div resb 1
+    resultado resb 1
     error_code resd 1
 
 section .text
@@ -28,7 +21,7 @@ suma:
     ;   1. EAX - primer operando
     ;   2. EBX - segundo operando
     add eax, ebx
-    mov [res_sum], eax
+    mov [resultado], eax
     ret
     
 resta:
@@ -39,7 +32,7 @@ resta:
     cmp ebx, eax
     jg error_resta
     sub eax, ebx
-    mov [res_rest], eax
+    mov [resultado], eax
     ret
 
 multip:
@@ -48,7 +41,7 @@ multip:
     ;   1. EAX - primer operando
     ;   2. EBX - segundo operando
     mul ebx
-    mov [res_mul], ebx
+    mov [resultado], ebx
     ret
 
 division:
@@ -60,7 +53,7 @@ division:
     div ebx
     test edx, edx
     jnz error_non_int_div
-    mov [res_div], ebx
+    mov [resultado], ebx
     ret
 
 error_resta:
