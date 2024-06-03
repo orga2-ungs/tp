@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-// llamar funcion asm usando extern int suma(int a, int b);
-
 extern int recibir_operacion(int operando1, char operador, int operando2);
 extern int obtener_codigo_error(void);
 
@@ -28,7 +26,6 @@ void LimpiarInput(const char* input, int* num1, char* operando, int* num2) {
     char inputLimpio[100];
     LimpiarEspacios(input, inputLimpio);
 
-    // Find the operator and split the string
     char *operador_pos = strpbrk(inputLimpio, "+-*/");
     if (operador_pos != NULL) {
         *operando = *operador_pos;
@@ -43,21 +40,13 @@ void LimpiarInput(const char* input, int* num1, char* operando, int* num2) {
     }
 }
 
-// Muestra un mensaje solicitando ingreso y se ingresa la pregunta
 void LeerPregunta() {
     char input[100];
     printf("Ingrese la operacion a calcular (e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10')\n");
     fgets(input, sizeof(input), stdin);
-    // char *token = strtok(input, " ");
-    // num1 = atoi(token);
-    // token = strtok(NULL, " ");
-    // operando = token[0];
-    // token = strtok(NULL, " ");
-    // num2 = atoi(token);
     LimpiarInput(input, &num1, &operando, &num2);
 }
 
-// Devuelve resultado de la operacion
 int CalcularOperacion(int Operando1, char Operador, int Operando2) {
   return recibir_operacion(Operando1, Operador, Operando2);
 }
@@ -76,9 +65,6 @@ int seguirOperando() {
 
   fgets(input, sizeof(input), stdin);
   char *token = strtok(input, " ");
-  //por algun motivo esto genera segmentation fault
-  //int respuesta;
-  //scanf("%d", &respuesta);
   int respuesta = atoi(token);
   return respuesta;
 }
