@@ -89,7 +89,7 @@ int main() {
   printf("/    \\  \\/ \\__  \\  |  |  _/ ___\\ | __ \\  /  _ \\\\   __\\\n");
   printf("\\     \\____ / __ \\_|  |__\\  \\___ | \\_\\ \\(  <_> )|  |  \n");
   printf(" \\______  /(____  /|____/ \\___  >|___  / \\____/ |__|  \n");
-  printf("        \\/      \\/            \\/     \\/               \n");
+  printf("        \\/      \\/            \\/     \\/               \n\n");
   printf("Ingrese la operacion a calcular, q para salir o h para ayuda.\n");
   int input;
   int numOperacion = 1;
