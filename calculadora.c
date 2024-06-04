@@ -88,11 +88,11 @@ void MostrarError(int codigo_error){
 }
 
 void MostrarAyuda() {
-  printf("USO\nIngresar dos operandos separados por un operador.\n");
+  printf("\nUSO\nIngresar dos operandos separados por un operador.\n");
   printf("Por e.j., '10 + 10', '10 - 10', '10 * 10', '10 / 10'.\n");
   printf("Se permiten números negativos.\n");
   printf("Por e.j., '-10 + -10', '-10 - -10', '-10 * -10', '-10 / -10'.\n");
-  printf("No se permiten más de dos operandos ni números de punto flotante.\n");
+  printf("No se permiten más de dos operandos ni números de punto flotante.\n\n");
 }
 
 int main() {
