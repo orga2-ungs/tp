@@ -44,8 +44,9 @@ division:
     ; parametros: 
     ;   1. EAX - dividendo
     ;   2. EBX - divisor
-    xor edx, edx 
-    div ebx
+    xor edx, edx
+    cdq
+    idiv ebx
     test edx, edx
     jnz error_non_int_div
     ret
