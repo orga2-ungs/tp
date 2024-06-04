@@ -84,6 +84,14 @@ void MostrarAyuda() {
 }
 
 int main() {
+  printf("
+_________          .__          ___.             __   
+\_   ___ \ _____   |  |    ____ \_ |__    ____ _/  |_ 
+/    \  \/ \__  \  |  |  _/ ___\ | __ \  /  _ \\   __\
+\     \____ / __ \_|  |__\  \___ | \_\ \(  <_> )|  |  
+ \______  /(____  /|____/ \___  >|___  / \____/ |__|  
+        \/      \/            \/     \/               
+");
   printf("Ingrese la operacion a calcular, q para salir o h para ayuda.\n");
   int input;
   int numOperacion = 1;
