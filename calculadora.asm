@@ -26,8 +26,6 @@ resta:
     ; parametros: 
     ;   1. EAX - primer operando
     ;   2. EBX - segundo operando
-    ;cmp ebx, eax
-    ;jg error_resta
     sub eax, ebx
     ret
 
@@ -49,11 +47,6 @@ division:
     idiv ebx
     test edx, edx
     jnz error_non_int_div
-    ret
-
-error_resta:
-    ; resultado de resta negativo
-    mov dword [error_code], 4
     ret
 
 error_div_cero:
@@ -90,11 +83,12 @@ recibir_operacion:
     cmp edx, '*'
     je multip
     
+    ; division por cero
     cmp ebx, 0
     je error_div_cero
     
     cmp edx, '/'
-    je division ; excepcion de coma flotante
+    je division
 
     ; operacion no valida
     mov dword [error_code], 2

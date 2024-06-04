@@ -84,10 +84,7 @@ void MostrarError(int codigo_error){
   }     
   if (codigo_error == 3){
    printf("Error: resultado de la division no es un entero\n");
-  }
-  if (codigo_error == 4){
-   printf("Error: resultado de la resta negativo.\n");
-  }     
+  }  
 }
 
 void MostrarAyuda() {
