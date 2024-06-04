@@ -26,12 +26,23 @@ void LimpiarInput(const char* input, int* num1, char* operando, int* num2) {
     char inputLimpio[100];
     LimpiarEspacios(input, inputLimpio);
 
+    int operandoNegativo = 0;
+
+    if (inputLimpio[0] == '-') {
+      operandoNegativo = 1;
+      inputLimpio[0] = ' ';
+    }
+
     char *operador_pos = strpbrk(inputLimpio, "+-*/");
     if (operador_pos != NULL) {
         *operando = *operador_pos;
         *operador_pos = '\0';
         *num1 = atoi(inputLimpio);
         *num2 = atoi(operador_pos + 1);
+
+        if (operandoNegativo) {
+          *num1 = *num1 * (-1);
+        }
     } else {
         printf("Error: Operación no válida.\n");
         *num1 = 0;

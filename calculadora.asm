@@ -26,8 +26,8 @@ resta:
     ; parametros: 
     ;   1. EAX - primer operando
     ;   2. EBX - segundo operando
-    cmp ebx, eax
-    jg error_resta
+    ;cmp ebx, eax
+    ;jg error_resta
     sub eax, ebx
     ret
 
