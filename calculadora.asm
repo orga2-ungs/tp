@@ -26,6 +26,7 @@ multip:
 
 division:
     ; divide los dos operandos
+    jmp error_div_cero ; not yet implemented
     movd eax, mm0
     movd ebx, mm1 
     test ebx, ebx
@@ -49,6 +50,7 @@ error_non_int_div:
 end_operation:
     ; despues de una operacion con MMX, 
     ; la instruccion emms asegura una correcta limpieza de los registros FPU
+    movd eax, mm0
     emms
     ret
 
