@@ -1,6 +1,3 @@
-;uncomment for correct debugging
-;%include "io.inc"
-
 section .bss
     error_code resd 1
 
@@ -8,54 +5,52 @@ section .text
 
 limpiar_registros:
     ; limpia los registros para ser utilizados
-    xor eax, eax
-    xor ebx, ebx
-    xor ecx, ecx
-    xor edx, edx
-    
+    pxor mm0, mm0
+    pxor mm1, mm1
+    jmp end_operation
+
 suma:
     ; suma los dos operandos
-    ; parametros: 
-    ;   1. EAX - primer operando
-    ;   2. EBX - segundo operando
-    add eax, ebx
-    ret
+    paddd mm0, mm1
+    jmp end_operation
     
 resta:
     ; resta los dos operandos
-    ; parametros: 
-    ;   1. EAX - primer operando
-    ;   2. EBX - segundo operando
-    sub eax, ebx
-    ret
+    psubd mm0, mm1
+    jmp end_operation
 
 multip:
     ; multiplica los dos operandos
-    ; parametros: 
-    ;   1. EAX - primer operando
-    ;   2. EBX - segundo operando
-    mul ebx
-    ret
+    pmuludq mm0, mm1
+    jmp end_operation
 
 division:
     ; divide los dos operandos
-    ; parametros: 
-    ;   1. EAX - dividendo
-    ;   2. EBX - divisor
+    movd eax, mm0
+    movd ebx, mm1 
+    test ebx, ebx
+    jz error_div_cero
     xor edx, edx
-    cdq
     idiv ebx
+
+    movd mm0, eax
     test edx, edx
     jnz error_non_int_div
-    ret
+    jmp end_operation
 
 error_div_cero:
     mov dword [error_code], 1
-    ret
+    jmp end_operation
 
 error_non_int_div:
     mov dword [error_code], 3 
-    ret 
+    jmp end_operation
+
+end_operation:
+    ; despues de una operacion con MMX, 
+    ; la instruccion emms asegura una correcta limpieza de los registros FPU
+    emms
+    ret
 
 global recibir_operacion  
 recibir_operacion:
@@ -64,15 +59,17 @@ recibir_operacion:
     ; multiplicación o división
     ; parametros:
     ;   1. ESP - array de parametros,
+    ;    ESP es el stack pointer
+    ;    [ESP] apunta al top stack
     ;    en el que esta el primer
     ;    operando, el operador y el
     ;    segundo operando
     
     call limpiar_registros
-    mov eax, [esp+4]
+    movd mm0, [esp+4]
     mov edx, [esp+8]
-    mov ebx, [esp+12]
-    mov dword [error_code], 0
+    movd mm1, [esp+12]
+    mov dword [error_code], 0 ; inicio error code en 0
     
     cmp edx, '+'
     je suma
@@ -83,22 +80,14 @@ recibir_operacion:
     cmp edx, '*'
     je multip
     
-    ; division por cero
-    cmp ebx, 0
-    je error_div_cero
-    
     cmp edx, '/'
     je division
 
-    ; operacion no valida
+    ; Operacion invalida
     mov dword [error_code], 2
     ret
 
 global obtener_codigo_error
 obtener_codigo_error:
-   ; devuelve codigo de error
-   ; 1 - division por cero
-   ; 2 - operacion no valida
-   ; 3 - resultado de division no entero
    mov eax, [error_code]
    ret
