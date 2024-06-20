@@ -51,7 +51,7 @@ void LimpiarInput(const char* input, int* num1, char* operando, int* num2) {
     }
 }
 
-int GetInput(int numOperacion) {
+int LeerPregunta(int numOperacion) {
   char input[100];
   printf("%d:input> ", numOperacion);
   fgets(input, sizeof(input), stdin);
@@ -106,7 +106,7 @@ int main() {
   int input;
   int numOperacion = 1;
 
-  while(input = GetInput(numOperacion)) {
+  while(input = LeerPregunta(numOperacion)) {
     if (input == 2) {
       MostrarAyuda();
       continue;
