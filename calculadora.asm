@@ -47,7 +47,7 @@ division:
     movq mm3, [negativo_uno] ; seteo mi signo
 
 dividendo_positivo:
-    text ebx, ebx
+    test ebx, ebx
     jns dividendo_y_divisor_positivo
     pxor mm1, [negativo_uno] ; niego mi divisor
     movq mm3, [negativo_uno]
