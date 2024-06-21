@@ -52,8 +52,8 @@ dividendo_positivo:
     pxor mm1, [negativo_uno] ; niego mi divisor
     movq mm3, [negativo_uno]
 
-dividendo_y_divisor_positivo:
-    movq mm3, [uno] ; ningun operando negativo, dejo todo positivo
+divisor_positivo:
+    pxor mm2, mm2 ; init cociente en 0
 
 division_loop:
     movd eax, mm0
