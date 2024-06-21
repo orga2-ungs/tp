@@ -1,3 +1,9 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include "calculadora-aux.h"
+
 void LimpiarEspacios(const char* input, char* output) {
     const char *p = input;
     char *q = output;

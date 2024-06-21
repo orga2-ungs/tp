@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "calculadora.h"
+#include "calculadora-aux.h"
 
 extern int recibir_operacion(int operando1, char operador, int operando2);
 extern int obtener_codigo_error(void);

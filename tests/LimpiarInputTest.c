@@ -13,10 +13,10 @@ void test_LimpiarInput() {
     assert(num2 == 2);
 
     // Test 2: Basic subtraction
-    // LimpiarInput("3-2", &num1, &operador, &num2);
-    // assert(num1 == 3);
-    // assert(operador == '-');
-    // assert(num2 == 2);
+    LimpiarInput("3-2", &num1, &operador, &num2);
+    assert(num1 == 3);
+    assert(operador == '-');
+    assert(num2 == 2);
 
     // // Test 3: Multiplication with spaces
     // LimpiarInput(" 4 * 5 ", &num1, &operador, &num2);
