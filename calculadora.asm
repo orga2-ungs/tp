@@ -7,47 +7,60 @@ limpiar_registros:
     ; limpia los registros para ser utilizados
     pxor mm0, mm0
     pxor mm1, mm1
-    jmp end_operation
+    pxor mm2, mm2
+    ret
 
 suma:
     ; suma los dos operandos
     paddd mm0, mm1
-    jmp end_operation
+    jmp finalizar_operacion
     
 resta:
     ; resta los dos operandos
     psubd mm0, mm1
-    jmp end_operation
+    jmp finalizar_operacion
 
 multip:
     ; multiplica los dos operandos
     pmuludq mm0, mm1
-    jmp end_operation
+    jmp finalizar_operacion
 
 division:
     ; divide los dos operandos
-    jmp error_div_cero ; not yet implemented
-    movd eax, mm0
-    movd ebx, mm1 
+    movd ebx, mm1 ; muevo dividendo a ebx para testear si es 0
     test ebx, ebx
     jz error_div_cero
-    xor edx, edx
-    idiv ebx
+    xor ebx, ebx
+    pxor mm2, mm2 ; limpio mm2 para usarlo como cociente
 
-    movd mm0, eax
-    test edx, edx
-    jnz error_non_int_div
-    jmp end_operation
+division_loop:
+    psubb mm0, mm1
+    paddd mm2, [one]
 
+    movd eax, mm0
+    test eax, eax
+    jz division_fin
+
+    movd edx, mm1
+    cmp eax, edx
+    jae division_loop ; dividendo >= divisor
+
+    jmp error_non_int_div ; dividendo < divisor, division no entera
+
+division_fin:
+    movd mm0, mm2
+    mov dword [error_code], 0
+    jmp finalizar_operacion
+    
 error_div_cero:
     mov dword [error_code], 1
-    jmp end_operation
+    ret
 
 error_non_int_div:
     mov dword [error_code], 3 
-    jmp end_operation
+    ret
 
-end_operation:
+finalizar_operacion:
     ; despues de una operacion con MMX, 
     ; la instruccion emms asegura una correcta limpieza de los registros FPU
     movd eax, mm0
