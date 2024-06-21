@@ -1,6 +1,9 @@
 section .bss
     error_code resd 1
 
+section .data
+    one dq 1
+
 section .text
 
 limpiar_registros:
