@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "calculadora.h"
 
 extern int recibir_operacion(int operando1, char operador, int operando2);
 extern int obtener_codigo_error(void);
@@ -23,33 +24,31 @@ void LimpiarEspacios(const char* input, char* output) {
     *q = '\0';
 }
 
-void LimpiarInput(const char* input, int* num1, char* operando, int* num2) {
+void LimpiarInput(const char* input, int* num1, char* operador, int* num2) {
     char inputLimpio[100];
     LimpiarEspacios(input, inputLimpio);
 
-    int operandoNegativo = 0;
+    int primerOperandoSigno = 1;
+    int segundoOperandoSigno = 1;
 
-    if (inputLimpio[0] == '-') {
-      operandoNegativo = 1;
-      inputLimpio[0] = ' ';
-    }
+    if (inputLimpio[0] == '-') { primerOperandoSigno = -1; }
+    if (inputLimpio[0] == '+' || inputLimpio[0] == '-') { inputLimpio[0] = ' '; }
 
     char *operador_pos = strpbrk(inputLimpio, "+-*/");
     if (operador_pos != NULL) {
-        *operando = *operador_pos;
+        *operador = *operador_pos;
         *operador_pos = '\0';
-        *num1 = atoi(inputLimpio);
-        *num2 = atoi(operador_pos + 1);
-
-        if (operandoNegativo) {
-          *num1 = *num1 * (-1);
-        }
+        
     } else {
         printf("Error: Operación no válida.\n");
         *num1 = 0;
-        *operando = '+';
+        *operador = '+';
         *num2 = 0;
     }
+
+    *num1 = atoi(inputLimpio) * primerOperandoSigno;
+    if (inputLimpio[*(operador_pos + 1)] == '-') { segundoOperandoSigno = -1; }
+    *num2 = atoi(operador_pos + 1) * segundoOperandoSigno;
 }
 
 int LeerPregunta(int numOperacion) {
@@ -65,11 +64,11 @@ int LeerPregunta(int numOperacion) {
 }
 
 int CalcularOperacion(int Operando1, char Operador, int Operando2) {
-  return recibir_operacion(Operando1, Operador, Operando2);
+  return 1;//recibir_operacion(Operando1, Operador, Operando2);
 }
 
 int ObtenerCodigoError(){
-  return obtener_codigo_error();
+  return 1;//obtener_codigo_error();
 }
 
 void MostrarResultado(int numOperacion, int resultado) {
