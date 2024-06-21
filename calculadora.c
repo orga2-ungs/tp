@@ -9,6 +9,7 @@ extern int obtener_codigo_error(void);
 int num1;
 char operando;
 int num2;
+int resultado_anterior = 0;
 
 void LimpiarEspacios(const char* input, char* output) {
     const char *p = input;
@@ -73,6 +74,7 @@ int ObtenerCodigoError(){
 
 void MostrarResultado(int numOperacion, int resultado) {
   printf("%d:output> %d\n", numOperacion, resultado);
+  resultado_anterior = resultado;
 }
 
 void MostrarError(int codigo_error){
@@ -93,6 +95,8 @@ void MostrarAyuda() {
   printf("Se permiten números negativos.\n");
   printf("Por e.j., '-10 + -10', '-10 - -10', '-10 * -10', '-10 / -10'.\n");
   printf("No se permiten más de dos operandos ni números de punto flotante.\n\n");
+  printf("Para usar el resultado anterior como primer operando, ingrese la operación sin el primer operando.\n");
+  printf("Por e.j., si el resultado anterior es 10, puede ingresar '+ 5' para calcular '10 + 5'.\n\n");
 }
 
 int main() {
@@ -111,6 +115,11 @@ int main() {
       MostrarAyuda();
       continue;
     }
+
+    if (num1 == 0 && operando != '+' && operando != '-'){
+        num1 = resultado_anterior;
+    }
+      
     int resultado = CalcularOperacion(num1, operando, num2);
     int codigo_error = ObtenerCodigoError();
     if (codigo_error != 0) {
