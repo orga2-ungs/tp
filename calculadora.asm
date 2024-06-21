@@ -39,7 +39,7 @@ division:
     pxor mm2, mm2 ; limpio mm2 para usarlo como cociente
 
 division_loop:
-    mov eax, mm0
+    movd eax, mm0
     cmp eax, ebx
     jb division_comprobar_resto ; dividendo < divisor, compruebo resto
 
