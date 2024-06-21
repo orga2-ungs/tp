@@ -30,25 +30,35 @@ multip:
 
 division:
     ; divide los dos operandos
-    movd ebx, mm1 ; muevo dividendo a ebx para testear si es 0
+    ; dividendo | divisor
+    ;             cociente
+    movd ebx, mm1 ; muevo divisor a ebx para testear si es 0
     test ebx, ebx
-    jz error_div_cero
-    xor ebx, ebx
+    jz error_div_cero ; jump zero
+    
     pxor mm2, mm2 ; limpio mm2 para usarlo como cociente
 
 division_loop:
-    psubb mm0, mm1
-    paddd mm2, [one]
+    mov eax, mm0
+    cmp eax, ebx
+    jb division_comprobar_resto ; dividendo < divisor, compruebo resto
 
+    psubd mm0, mm1 ; dividendo, divisor
+    paddd mm2, [one] ; aumento el cociente
+
+    movd eax, mm0 ; muevo dividendo actualizado
+    test eax, eax
+    jz division_fin ; si dividendo llega a 0, termino
+
+    ; movd edx, mm1
+    cmp eax, ebx
+    jae division_loop ; jump above or equals, dividendo >= divisor
+
+division_comprobar_resto:
     movd eax, mm0
     test eax, eax
     jz division_fin
-
-    movd edx, mm1
-    cmp eax, edx
-    jae division_loop ; dividendo >= divisor
-
-    jmp error_non_int_div ; dividendo < divisor, division no entera
+    jmp error_non_int_div
 
 division_fin:
     movq mm0, mm2
