@@ -48,7 +48,7 @@ division:
 
 dividendo_positivo:
     test ebx, ebx
-    jns dividendo_y_divisor_positivo
+    jns divisor_positivo
     pxor mm1, [negativo_uno] ; niego mi divisor
     movq mm3, [negativo_uno]
 
