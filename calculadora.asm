@@ -43,14 +43,16 @@ division:
     pxor mm3, mm3
     test eax, eax
     jns dividendo_positivo ; jump not signed
-    pxor mm0, [negativo_uno] ; niego mi dividendo
+    pmuludq mm0, [negativo_uno] ; niego mi dividendo
+    ; paddd mm0, [uno] -n PXOR -1 = n-1, esto lo corrige
     pxor mm3, [negativo_uno] ; seteo mi signo
 
 dividendo_positivo:
     test ebx, ebx
     jns divisor_positivo
-    pxor mm1, [negativo_uno] ; niego mi divisor
-    pxor mm3, [negativo_uno]
+    pmuludq mm1, [negativo_uno] ; niego mi divisor
+    ; paddd mm1, [uno]  same as mm0
+    pmuludq mm3, [negativo_uno]
 
 divisor_positivo:
     pxor mm2, mm2 ; init cociente en 0
@@ -78,9 +80,8 @@ division_comprobar_resto:
     jmp error_non_int_div
 
 division_fin:
+    pmuludq mm2, mm3
     movq mm0, mm2
-    pxor mm0, mm3 ; aplico mi signo
-    paddd mm0, mm3
     mov dword [error_code], 0
     jmp finalizar_operacion
     
