@@ -44,7 +44,7 @@ division:
     test eax, eax
     jns dividendo_positivo ; jump not signed
     pxor mm0, [negativo_uno] ; niego mi dividendo
-    movq mm3, [negativo_uno] ; seteo mi signo
+    pxor mm3, [negativo_uno] ; seteo mi signo
 
 dividendo_positivo:
     test ebx, ebx
@@ -57,6 +57,7 @@ divisor_positivo:
 
 division_loop:
     movd eax, mm0
+    movd ebx, mm1
     cmp eax, ebx
     jb division_comprobar_resto ; dividendo < divisor, compruebo resto
 
