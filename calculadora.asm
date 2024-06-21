@@ -50,7 +50,7 @@ dividendo_positivo:
     test ebx, ebx
     jns divisor_positivo
     pxor mm1, [negativo_uno] ; niego mi divisor
-    movq mm3, [negativo_uno]
+    pxor mm3, [negativo_uno]
 
 divisor_positivo:
     pxor mm2, mm2 ; init cociente en 0
@@ -67,7 +67,6 @@ division_loop:
     test eax, eax
     jz division_fin ; si dividendo llega a 0, termino
 
-    ; movd edx, mm1
     cmp eax, ebx
     jae division_loop ; jump above or equals, dividendo >= divisor
 
@@ -78,8 +77,9 @@ division_comprobar_resto:
     jmp error_non_int_div
 
 division_fin:
-    pxor mm2, mm3 ; aplico mi signo
     movq mm0, mm2
+    pxor mm0, mm3 ; aplico mi signo
+    paddd mm0, mm3
     mov dword [error_code], 0
     jmp finalizar_operacion
     
