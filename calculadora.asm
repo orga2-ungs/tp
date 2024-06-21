@@ -2,15 +2,17 @@ section .bss
     error_code resd 1
 
 section .data
-    one dq 1
+    uno dq 1
+    negativo_uno dq -1
 
 section .text
 
 limpiar_registros:
     ; limpia los registros para ser utilizados
-    pxor mm0, mm0
-    pxor mm1, mm1
-    pxor mm2, mm2
+    pxor mm0, mm0 ; operando 1
+    pxor mm1, mm1 ; operando 2
+    pxor mm2, mm2 ; cociente de division
+    pxor mm3, mm3 ; signo
     ret
 
 suma:
@@ -32,11 +34,26 @@ division:
     ; divide los dos operandos
     ; dividendo | divisor
     ;             cociente
-    movd ebx, mm1 ; muevo divisor a ebx para testear si es 0
+    movd eax, mm0 ; dividendo a eax por comodidad
+    movd ebx, mm1 ; divisor a ebx para testear si es 0
     test ebx, ebx
     jz error_div_cero ; jump zero
-    
-    pxor mm2, mm2 ; limpio mm2 para usarlo como cociente
+
+    ; comprobamos signo
+    pxor mm3, mm3
+    test eax, eax
+    jns dividendo_positivo ; jump not signed
+    pxor mm0, [negativo_uno] ; niego mi dividendo
+    movq mm3, [negativo_uno] ; seteo mi signo
+
+dividendo_positivo:
+    text ebx, ebx
+    jns dividendo_y_divisor_positivo
+    pxor mm1, [negativo_uno] ; niego mi divisor
+    movq mm3, [negativo_uno]
+
+dividendo_y_divisor_positivo:
+    movq mm3, [uno] ; ningun operando negativo, dejo todo positivo
 
 division_loop:
     movd eax, mm0
@@ -44,7 +61,7 @@ division_loop:
     jb division_comprobar_resto ; dividendo < divisor, compruebo resto
 
     psubd mm0, mm1 ; dividendo, divisor
-    paddd mm2, [one] ; aumento el cociente
+    paddd mm2, [uno] ; aumento el cociente
 
     movd eax, mm0 ; muevo dividendo actualizado
     test eax, eax
@@ -61,6 +78,7 @@ division_comprobar_resto:
     jmp error_non_int_div
 
 division_fin:
+    pxor mm2, mm3 ; aplico mi signo
     movq mm0, mm2
     mov dword [error_code], 0
     jmp finalizar_operacion
