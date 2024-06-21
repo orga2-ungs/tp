@@ -51,7 +51,7 @@ division_loop:
     jmp error_non_int_div ; dividendo < divisor, division no entera
 
 division_fin:
-    movd mm0, mm2
+    movq mm0, mm2
     mov dword [error_code], 0
     jmp finalizar_operacion
     
