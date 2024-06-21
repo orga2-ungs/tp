@@ -40,7 +40,7 @@ division:
     jz error_div_cero ; jump zero
 
     ; comprobamos signo
-    pxor mm3, mm3
+    movq mm3, [uno]
     test eax, eax
     jns dividendo_positivo ; jump not signed
     pmuludq mm0, [negativo_uno] ; niego mi dividendo
