@@ -16,6 +16,14 @@ void LimpiarEspacios(const char* input, char* output) {
     *q = '\0';
 }
 
+int esOperacionContinuada(const char *input) {
+    if (strpbrk(input + 1, "+-*/") == NULL) {
+        return 1; // True, no other operands after the first character
+    } else {
+        return 0; // False, other operands found
+    }
+}
+
 void LimpiarInput(const char* input, int* num1, char* operador, int* num2) {
     char inputLimpio[100];
     LimpiarEspacios(input, inputLimpio);
@@ -54,7 +62,7 @@ void LimpiarInput(const char* input, int* num1, char* operador, int* num2) {
     *num2 = atoi(operador_pos + 1);
 }
 
-int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2) {
+int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2, int *operacion_continuada) {
   char input[100];
   printf("%d:input> ", numOperacion);
   fgets(input, sizeof(input), stdin);
@@ -63,6 +71,7 @@ int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2) {
   if(input[0] == 'h') return 2;   // ayuda
 
   LimpiarInput(input, num1, operando, num2);
+  *operacion_continuada = esOperacionContinuada(input);
   return 1;   // continuar con operacion
 }
 
