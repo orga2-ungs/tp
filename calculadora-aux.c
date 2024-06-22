@@ -67,11 +67,11 @@ void LimpiarInput(const char* input, int* num1, char* operador, int* num2, int* 
 
 
 int CalcularOperacion(int Operando1, char Operador, int Operando2) {
-  return 1;//recibir_operacion(Operando1, Operador, Operando2);
+  return recibir_operacion(Operando1, Operador, Operando2);
 }
 
 int ObtenerCodigoError(){
-  return 1;//obtener_codigo_error();
+  return obtener_codigo_error();
 }
 
 void MostrarResultado(int numOperacion, int resultado) {
