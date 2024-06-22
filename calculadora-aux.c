@@ -76,7 +76,6 @@ int ObtenerCodigoError(){
 
 void MostrarResultado(int numOperacion, int resultado) {
   printf("%d:output> %d\n", numOperacion, resultado);
-  resultado_anterior = resultado;
 }
 
 void MostrarError(int codigo_error){
