@@ -44,8 +44,8 @@ int main() {
             resultado_anterior = 0;
         } else {
             MostrarResultado(numOperacion, resultado);
+            resultado_anterior = resultado;
         }
-        resultado_anterior = resultado;
         numOperacion++;
     }
 
