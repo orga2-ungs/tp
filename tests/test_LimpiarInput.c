@@ -79,7 +79,7 @@ void test_LimpiarInput() {
     assertCharEqual('+', operador, "Test 8: operador");
     assertIntEqual(0, num2, "Test 8: num2");
 
-    printf("All tests passed!\n");
+    printf("All LimpiarInput tests passed!\n");
 }
 
 int main() {

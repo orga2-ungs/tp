@@ -16,7 +16,7 @@ void LimpiarEspacios(const char* input, char* output) {
     *q = '\0';
 }
 
-int esOperacionContinua(const char *input) {
+int esOperacionContinuada(const char *input) {
     if (strpbrk(input + 1, "+-*/") == NULL) {
         return 1; // True, no other operands after the first character
     } else {
@@ -71,7 +71,7 @@ int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2, int *es
   if(input[0] == 'h') return 2;   // ayuda
 
   LimpiarInput(input, num1, operando, num2);
-  *es_operacion_continua = esOperacionContinua(input);
+  *es_operacion_continua = esOperacionContinuada(input);
   return 1;
 }
 

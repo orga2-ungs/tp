@@ -10,6 +10,6 @@ void MostrarResultado(int numOperacion, int resultado);
 void MostrarError(int codigo_error);
 void MostrarAyuda();
 void ImprimirCartel();
-int esOperacionContinua(const char *input);
+int esOperacionContinuada(const char *input);
 
 #endif // CALCULADORA_H
