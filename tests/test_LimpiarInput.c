@@ -67,11 +67,11 @@ void test_LimpiarInput() {
 
     // Test 7: Operacion continuada
     // NOT YET IMPLEMENTED
-    // int resultado_anterior = 0;
-    // LimpiarInput("+5", &num1, &operador, &num2);
-    // assertIntEqual(resultado_anterior, num1, "Test 7: num1");
-    // assertCharEqual('+', operador, "Test 7: operador");
-    // assertIntEqual(5, num2, "Test 7: num2");
+    int resultado_anterior = 0;
+    LimpiarInput("+5", &num1, &operador, &num2, &resultado_anterior);
+    assertIntEqual(resultado_anterior, num1, "Test 7: num1");
+    assertCharEqual('+', operador, "Test 7: operador");
+    assertIntEqual(5, num2, "Test 7: num2");
 
     // Test 8: Operacion invalida
     LimpiarInput("invalid", &num1, &operador, &num2, NULL);

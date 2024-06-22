@@ -26,7 +26,7 @@ int esOperacionContinuada(const char *input) {
 
 void LimpiarInput(const char* input, int* num1, char* operador, int* num2, int* resultado_anterior) {
     char inputLimpio[100];
-    if (strpbrk(inputLimpio, "0123456789") == NULL || strpbrk(inputLimpio, "+-*/") == NULL) {
+    if (strpbrk(input, "0123456789") == NULL || strpbrk(input, "+-*/") == NULL) {
         printf("Error: Operacion no valida.\n");
         *num1 = 0;
         *operador = '+';
