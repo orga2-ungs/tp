@@ -1,7 +1,28 @@
 #!/bin/bash
 
-# Compile test_esOperacionContinua.c
-gcc -o test_esOperacionContinua test_esOperacionContinua.c ../calculadora-aux.c
+# Compile NASM assembly code
+nasm -f elf32 ../calculadora.asm -o calculadora-asm.o
+if [ $? -ne 0 ]; then
+    echo "NASM compilation failed for calculadora.asm"
+    exit 1
+fi
+
+# Compile calculadora-aux.c with reference to calculadora-asm.o
+gcc -m32 -c ../calculadora-aux.c -o calculadora-aux.o
+if [ $? -ne 0 ]; then
+    echo "Compilation failed for calculadora-aux.c"
+    exit 1
+fi
+
+# Link calculadora-aux.o with calculadora-asm.o to form a complete calculadora-aux.o
+ld -m elf_i386 -r calculadora-aux.o calculadora-asm.o -o combined-calculadora-aux.o
+if [ $? -ne 0 ]; then
+    echo "Linking failed for calculadora-aux.o and calculadora-asm.o"
+    exit 1
+fi
+
+# Compile and link test_esOperacionContinua with the combined object file
+gcc -m32 -o test_esOperacionContinua test_esOperacionContinua.c combined-calculadora-aux.o
 if [ $? -ne 0 ]; then
     echo "Compilation failed for test_esOperacionContinua.c"
     exit 1
@@ -14,8 +35,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Compile test_LimpiarInput.c
-gcc -o test_LimpiarInput test_LimpiarInput.c ../calculadora-aux.c
+# Compile and link test_LimpiarInput with the combined object file
+gcc -m32 -o test_LimpiarInput test_LimpiarInput.c combined-calculadora-aux.o
 if [ $? -ne 0 ]; then
     echo "Compilation failed for test_LimpiarInput.c"
     exit 1
