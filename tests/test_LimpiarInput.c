@@ -67,7 +67,6 @@ void test_LimpiarInput() {
     assertIntEqual(-2, num2, "Test 6: num2");
 
     // Test 7: Operacion continuada
-    // NOT YET IMPLEMENTED
     int resultado_anterior = 0;
     LimpiarInput("+5", &num1, &operador, &num2, &resultado_anterior);
     assertIntEqual(resultado_anterior, num1, "Test 7: num1");
@@ -80,7 +79,7 @@ void test_LimpiarInput() {
     assertCharEqual('+', operador, "Test 8: operador");
     assertIntEqual(0, num2, "Test 8: num2");
 
-    // Test 9: Minimum integer value
+    // Test 9: Minimo valor entero
     char minIntInput[50];
     sprintf(minIntInput, "%d+1", INT_MIN);
     LimpiarInput(minIntInput, &num1, &operador, &num2, NULL);
@@ -88,7 +87,7 @@ void test_LimpiarInput() {
     assertCharEqual('+', operador, "Test 9: operador (min int)");
     assertIntEqual(1, num2, "Test 9: num2 (min int)");
 
-    // Test 10: Maximum integer value
+    // Test 10: Maximo valor entero
     char maxIntInput[50];
     sprintf(maxIntInput, "%d-1", INT_MAX);
     LimpiarInput(maxIntInput, &num1, &operador, &num2, NULL);
@@ -96,20 +95,20 @@ void test_LimpiarInput() {
     assertCharEqual('-', operador, "Test 10: operador (max int)");
     assertIntEqual(1, num2, "Test 10: num2 (max int)");
 
-    // Test 11: Input with spaces
+    // Test 11: Input con espacios
     LimpiarInput(" 100   +   200 ", &num1, &operador, &num2, NULL);
     assertIntEqual(100, num1, "Test 11: num1 (spaces)");
     assertCharEqual('+', operador, "Test 11: operador (spaces)");
     assertIntEqual(200, num2, "Test 11: num2 (spaces)");
 
-    // Test 12: Operacion continuada without previous result (should handle gracefully)
+    // Test 12: Operacion continuada con resultado anterior
     resultado_anterior = 0;
     LimpiarInput("+10", &num1, &operador, &num2, &resultado_anterior);
     assertIntEqual(0, num1, "Test 12: num1");
     assertCharEqual('+', operador, "Test 12: operador");
     assertIntEqual(10, num2, "Test 12: num2");
 
-    // Test 13: Mixed positive and negative numbers
+    // Test 13: Combinar signo con operador
     LimpiarInput("10+-5", &num1, &operador, &num2, NULL);
     assertIntEqual(10, num1, "Test 13: num1");
     assertCharEqual('+', operador, "Test 13: operador");
