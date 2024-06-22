@@ -51,7 +51,7 @@ void LimpiarInput(const char* input, int* num1, char* operador, int* num2) {
     *num2 = atoi(operador_pos + 1) * segundoOperandoSigno;
 }
 
-int LeerPregunta(int numOperacion) {
+int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2) {
   char input[100];
   printf("%d:input> ", numOperacion);
   fgets(input, sizeof(input), stdin);
@@ -59,7 +59,7 @@ int LeerPregunta(int numOperacion) {
   if(input[0] == 'q') return 0;   // salir
   if(input[0] == 'h') return 2;   // ayuda
 
-  LimpiarInput(input, &num1, &operando, &num2);
+  LimpiarInput(input, num1, operando, num2);
   return 1;   // continuar con operacion
 }
 
@@ -98,7 +98,7 @@ void MostrarAyuda() {
   printf("Por e.j., si el resultado anterior es 10, puede ingresar '+ 5' para calcular '10 + 5'.\n\n");
 }
 
-int main() {
+void ImprimirCartel(){
   printf("_________          .__          ___.             __   \n");
   printf("\\_   ___ \\ _____   |  |    ____ \\_ |__    ____ _/  |_ \n");
   printf("/    \\  \\/ \\__  \\  |  |  _/ ___\\ | __ \\  /  _ \\\\   __\\\n");
@@ -106,27 +106,39 @@ int main() {
   printf(" \\______  /(____  /|____/ \\___  >|___  / \\____/ |__|  \n");
   printf("        \\/      \\/            \\/     \\/               \n\n");
   printf("Ingrese la operacion a calcular, q para salir o h para ayuda.\n");
-  int input;
+}
+
+void ProcesarOperacion(int numOperacion) {
+    while (1) {
+        int input = LeerPregunta(numOperacion, &num1, &operando, &num2);
+        if (input == 0) {
+            break;  // Salir del bucle si se ingresa 'q'
+        } 
+        if (input == 2) {
+          MostrarAyuda();
+          continue;  // Continuar con el bucle si se ingresa 'h'
+        }
+
+        if (num1 == 0 && operando != '+' && operando != '-') {
+            num1 = resultado_anterior;
+        }
+
+        int resultado = CalcularOperacion(num1, operando, num2);
+        int codigo_error = ObtenerCodigoError();
+        if (codigo_error != 0) MostrarError(codigo_error);
+        if (codigo_error == 0) MostrarResultado(numOperacion, resultado);
+        
+        resultado_anterior = resultado;
+        numOperacion++;
+    }
+}
+
+int main() {
+  ImprimirCartel();
+  int input, num1, num 2;
+  char operando;
   int numOperacion = 1;
 
-  while(input = LeerPregunta(numOperacion)) {
-    if (input == 2) {
-      MostrarAyuda();
-      continue;
-    }
-
-    if (num1 == 0 && operando != '+' && operando != '-'){
-        num1 = resultado_anterior;
-    }
-      
-    int resultado = CalcularOperacion(num1, operando, num2);
-    int codigo_error = ObtenerCodigoError();
-    if (codigo_error != 0) {
-      MostrarError(codigo_error);
-    } else {
-      MostrarResultado(numOperacion, resultado);
-    }
-    numOperacion++;
-  }
+  ProcesarOperacion(1);
   return 0;
 }
