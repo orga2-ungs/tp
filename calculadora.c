@@ -3,7 +3,7 @@
 
 int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2, int *es_operacion_continua, int resultado_anterior) {
   char input[100];
-  printf("%d:input> ", &numOperacion);
+  printf("%d:input> ", numOperacion);
   fgets(input, sizeof(input), stdin);
 
   if(input[0] == 'q') return 0;   // salir
