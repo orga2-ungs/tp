@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <limits.h>
 #include "../calculadora-aux.h"
 
 void assertIntEqual(int expected, int actual, const char *message) {
