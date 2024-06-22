@@ -16,7 +16,7 @@ void LimpiarEspacios(const char* input, char* output) {
     *q = '\0';
 }
 
-int esOperacionContinuada(const char *input) {
+int esOperacionContinua(const char *input) {
     if (strpbrk(input + 1, "+-*/") == NULL) {
         return 1; // True, no other operands after the first character
     } else {
@@ -32,9 +32,9 @@ void LimpiarInput(const char* input, int* num1, char* operador, int* num2) {
     int segundoOperandoSigno = 1;
 
     // Caso 1: primer char es * o /, es operacion continuada
-    if (inputLimpio[0] == '*' || inputLimpio[0] == '/') {
+    if (inputLimpio[0] == '*' || inputLimpio[0] == '/') { //habria que testear cambiar todo esto por la funcion
         *operador = inputLimpio[0];
-        *num1 = 0;  // pensar como asignar resultado anterior
+        // *num1 = 0;
         *num2 = atoi(inputLimpio + 1);
         return;
     }
@@ -42,7 +42,7 @@ void LimpiarInput(const char* input, int* num1, char* operador, int* num2) {
     // Caso 2: primer char es + o - Y no hay otros operadores en el resto del input
     if ((inputLimpio[0] == '+' || inputLimpio[0] == '-') && strpbrk(inputLimpio + 1, "+-*/") == NULL) {
         *operador = inputLimpio[0];
-        *num1 = 0;  // Will be replaced by previous result in the caller function
+        // *num1 = 0; 
         *num2 = atoi(inputLimpio + 1);
         return;
     }
@@ -62,7 +62,7 @@ void LimpiarInput(const char* input, int* num1, char* operador, int* num2) {
     *num2 = atoi(operador_pos + 1);
 }
 
-int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2, int *operacion_continuada) {
+int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2, int *es_operacion_continua) {
   char input[100];
   printf("%d:input> ", numOperacion);
   fgets(input, sizeof(input), stdin);
@@ -71,8 +71,8 @@ int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2, int *op
   if(input[0] == 'h') return 2;   // ayuda
 
   LimpiarInput(input, num1, operando, num2);
-  *operacion_continuada = esOperacionContinuada(input);
-  return 1;   // continuar con operacion
+  *es_operacion_continua = esOperacionContinua(input);
+  return 1;
 }
 
 int CalcularOperacion(int Operando1, char Operador, int Operando2) {

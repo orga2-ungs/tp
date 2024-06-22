@@ -1,7 +1,5 @@
-#include <stdio.h>
+// #include <stdio.h>
 #include "calculadora-aux.h"
-
-int resultado_anterior = 0;
 
 int main() {
     ImprimirCartel();
@@ -9,9 +7,11 @@ int main() {
     char operando;
     int num2;
     int numOperacion = 1;
+    int resultado_anterior = 0;
+    int es_operacion_continua = 0;
 
     while (1) {
-        int input = LeerPregunta(numOperacion, &num1, &operando, &num2);
+        int input = LeerPregunta(numOperacion, &num1, &operando, &num2, int &es_operacion_continua);
         if (input == 0) {
             break;  // Salir del bucle si se ingresa 'q'
         } else if (input == 2) {
@@ -19,7 +19,7 @@ int main() {
             continue;  // Continuar con el bucle si se ingresa 'h'
         }
 
-        if (num1 == 0 && operando != '+' && operando != '-') {
+        if (es_operacion_continua) {
             num1 = resultado_anterior;
         }
 
