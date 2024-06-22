@@ -41,6 +41,7 @@ int main() {
         int codigo_error = ObtenerCodigoError();
         if (codigo_error != 0) {
             MostrarError(codigo_error);
+            resultado_anterior = 0;
         } else {
             MostrarResultado(numOperacion, resultado);
         }
