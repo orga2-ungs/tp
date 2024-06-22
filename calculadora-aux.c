@@ -16,38 +16,38 @@ void LimpiarEspacios(const char* input, char* output) {
     *q = '\0';
 }
 
+/*
+esOperacionContinuada si, luego del primer caracter,
+encuentro un operador admitido. Revisar tests para ejemplos.
+*/
 int esOperacionContinuada(const char *input) {
-    if (strpbrk(input + 1, "+-*/") == NULL) {
-        return 1; // True, no other operands after the first character
-    } else {
-        return 0; // False, other operands found
-    }
+    return (strpbrk(input + 1, "+-*/") == NULL);
 }
 
-void LimpiarInput(const char* input, int* num1, char* operador, int* num2) {
+void LimpiarInput(const char* input, int* num1, char* operador, int* num2, int* resultado_anterior) {
     char inputLimpio[100];
+    if (strpbrk(inputLimpio, "0123456789") == NULL || strpbrk(inputLimpio, "+-*/") == NULL) {
+        printf("Error: Operacion no valida.\n");
+        *num1 = 0;
+        *operador = '+';
+        *num2 = 0;
+        return;
+    }
     LimpiarEspacios(input, inputLimpio);
 
-    int primerOperandoSigno = 1;
-    int segundoOperandoSigno = 1;
+    if (esOperacionContinuada(inputLimpio) && resultado_anterior == NULL) {
+        printf("Error: resultado anterior no disponible.\n");
+        return;
+    }
 
-    // Caso 1: primer char es * o /, es operacion continuada
-    if (inputLimpio[0] == '*' || inputLimpio[0] == '/') { //habria que testear cambiar todo esto por la funcion
+    if (esOperacionContinuada(inputLimpio)) {
+        *num1 = *resultado_anterior;
         *operador = inputLimpio[0];
-        // *num1 = 0;
         *num2 = atoi(inputLimpio + 1);
         return;
     }
 
-    // Caso 2: primer char es + o - Y no hay otros operadores en el resto del input
-    if ((inputLimpio[0] == '+' || inputLimpio[0] == '-') && strpbrk(inputLimpio + 1, "+-*/") == NULL) {
-        *operador = inputLimpio[0];
-        // *num1 = 0; 
-        *num2 = atoi(inputLimpio + 1);
-        return;
-    }
-
-    // Caso 3: Caso general dos operandos y un operador
+    // Caso 2: Caso general dos operandos y un operador
     char *operador_pos = strpbrk(inputLimpio + 1, "+-*/");
     if(operador_pos == NULL){
         printf("Error: Operacion no valida.\n");
@@ -62,18 +62,6 @@ void LimpiarInput(const char* input, int* num1, char* operador, int* num2) {
     *num2 = atoi(operador_pos + 1);
 }
 
-int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2, int *es_operacion_continua) {
-  char input[100];
-  printf("%d:input> ", numOperacion);
-  fgets(input, sizeof(input), stdin);
-
-  if(input[0] == 'q') return 0;   // salir
-  if(input[0] == 'h') return 2;   // ayuda
-
-  LimpiarInput(input, num1, operando, num2);
-  *es_operacion_continua = esOperacionContinuada(input);
-  return 1;
-}
 
 int CalcularOperacion(int Operando1, char Operador, int Operando2) {
   return 1;//recibir_operacion(Operando1, Operador, Operando2);

@@ -1,6 +1,20 @@
 // #include <stdio.h>
 #include "calculadora-aux.h"
 
+int LeerPregunta(int numOperacion, int *num1, char *operando, int *num2, int *es_operacion_continua) {
+  char input[100];
+  printf("%d:input> ", numOperacion);
+  fgets(input, sizeof(input), stdin);
+
+  if(input[0] == 'q') return 0;   // salir
+  if(input[0] == 'h') return 2;   // ayuda
+
+  LimpiarInput(input, num1, operando, num2);
+  *es_operacion_continua = esOperacionContinuada(input);
+  return 1;
+}
+
+
 int main() {
     ImprimirCartel();
     int num1;
