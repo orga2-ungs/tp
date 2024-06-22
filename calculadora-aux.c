@@ -4,6 +4,9 @@
 #include <ctype.h>
 #include "calculadora-aux.h"
 
+extern int recibir_operacion(int operando1, char operador, int operando2);
+extern int obtener_codigo_error(void);
+
 void LimpiarEspacios(const char* input, char* output) {
     const char *p = input;
     char *q = output;
